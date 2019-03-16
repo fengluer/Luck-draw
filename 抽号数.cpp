@@ -8,6 +8,7 @@
 #include<stdlib.h>
 #include<time.h>
 #define MIN 1
+#define MAX 1000
 long long max;
 using namespace std;
 struct ex
@@ -15,36 +16,7 @@ struct ex
 	string num;
 	string name;
 	bool bo;
-} human[1000];
-void jh()
-{
-	string a;
-	bool bo=false;
-	ifstream fin("jhm.dll");
-	fin>>a;
-	if(a=="jihuochenggong=20191355zhuangyaohan")
-		return;
-	else
-	{
-		ofstream fout("jhm.dll");
-		while(true)
-		{
-			cout<<"ÊäÈë¼¤»îÂë£º"<<endl;
-			cin>>a;
-			if(a=="20191355zhuangyaohan")
-			{
-				system("cls");
-				fout<<"jihuochenggong=20191355zhuangyaohan";
-				system("start https://www.cnblogs.com/kangflict/p/4111010.html");
-				Sleep(5000);
-				MessageBox(NULL,"µ÷ÕûÎªÐÂËÎÌå×ÖºÅ¿É±ä¸ü´ó","³éºÅÊý",MB_ICONEXCLAMATION|MB_OK);
-				return;
-			}
-			system("cls");
-			cout<<"¼¤»îÂë´íÎó£¡ÇëÖØÐÂ";
-		}
-	}
-}
+} human[MAX];
 void s(string a)
 {
 	for(int i=0; i<a.length(); i++)
@@ -73,12 +45,13 @@ int main()
 		ofstream fout("namelist.txt");
 		fout.close();
 		fin.close();
-		MessageBox(NULL,"Ãûµ¥Îª¿Õ£¬ÇëÊäÈëÃûµ¥","³éºÅÊý",MB_ICONEXCLAMATION|MB_OK); 
-		cout<<"Ãûµ¥¸ñÊ½Îª£ººÅÊý£¨¿Õ¸ñ£©ÐÕÃû£¨¿Õ¸ñ£©È¨Öµ£¨»»ÐÐ£©" ;
+		MessageBox(NULL,"åå•ä¸ºç©ºï¼Œè¯·è¾“å…¥åå•","æŠ½å·æ•°",MB_ICONEXCLAMATION|MB_OK); 
+		cout<<"åå•æ ¼å¼ä¸ºï¼šå·æ•°ï¼ˆç©ºæ ¼ï¼‰å§“åï¼ˆç©ºæ ¼ï¼‰æƒå€¼ï¼ˆæ¢è¡Œï¼‰" ;
 		system("namelist.txt") ;
-		MessageBox(NULL,"ÒÔºóÈçÐèÐÞ¸Ä£¬Çëµ½³ÌÐò°²×°Ä¿Â¼ÖÐµÄnamelist.txtÐÞ¸Ä","³éºÅÊý",MB_ICONEXCLAMATION|MB_OK);
-		MessageBox(NULL,"ÈçÓÐÒÉÎÊ£¬ÇëÁªÏµ×÷Õß","³éºÅÊý",MB_ICONEXCLAMATION|MB_OK); 
+		MessageBox(NULL,"ä»¥åŽå¦‚éœ€ä¿®æ”¹ï¼Œè¯·åˆ°ç¨‹åºå®‰è£…ç›®å½•ä¸­çš„namelist.txtä¿®æ”¹","æŠ½å·æ•°",MB_ICONEXCLAMATION|MB_OK);
+		MessageBox(NULL,"å¦‚æœ‰ç–‘é—®ï¼Œè¯·è”ç³»ä½œè€…","æŠ½å·æ•°",MB_ICONEXCLAMATION|MB_OK); 
 		system("start www.weibo.com/fengluluer") ;
+		essageBox(NULL,"è°ƒæ•´ä¸ºæ–°å®‹ä½“å­—å·å¯å˜æ›´å¤§","æŠ½å·æ•°",MB_ICONEXCLAMATION|MB_OK);
 		return 0; 
 	}
 	srand((unsigned)time(NULL));
@@ -108,11 +81,11 @@ int main()
 			s(human[temp].num);
 			cout<<"    ";
 			s(human[temp].name);
-			if(MessageBox(NULL,"ÊÇ·ñ¼ÌÐø£¿","³éºÅÊý",MB_ICONEXCLAMATION|MB_OKCANCEL)!=1)
+			if(MessageBox(NULL,"æ˜¯å¦ç»§ç»­ï¼Ÿ","æŠ½å·æ•°",MB_ICONEXCLAMATION|MB_OKCANCEL)!=1)
 				return 0;
 			system("cls");
 		}
-		if(MessageBox(NULL,"³éºÅÊýÒÑ½áÊø\nÊÇ·ñÖØÐÂ¿ªÊ¼","³éºÅÊý",MB_ICONEXCLAMATION|MB_OKCANCEL)!=1)
+		if(MessageBox(NULL,"æŠ½å·æ•°å·²ç»“æŸ\næ˜¯å¦é‡æ–°å¼€å§‹","æŠ½å·æ•°",MB_ICONEXCLAMATION|MB_OKCANCEL)!=1)
 			return 0;
 	}
 	while(true);
