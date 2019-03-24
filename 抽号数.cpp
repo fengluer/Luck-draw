@@ -3,20 +3,57 @@
 #include<windows.h>
 #include<cctype>
 #include<fstream>
-#include<cstring>
+#include<string>
 #include<time.h>
 #include<stdlib.h>
 #include<time.h>
 #define MIN 1
-#define MAX 1000
-long long max;
+long long max,year,month,day;
 using namespace std;
 struct ex
 {
 	string num;
 	string name;
 	bool bo;
-} human[MAX];
+} ;
+void getSystemTime()
+{
+    time_t timer;
+    time(&timer);
+    tm* t_tm = localtime(&timer);
+    year=t_tm->tm_year+1900;
+    month=t_tm->tm_mon+1;
+    day=t_tm->tm_mday;
+}
+void date()
+{
+    ifstream fin("data.chs");
+    getSystemTime();
+    if(!fin)
+    {
+        ofstream fout("data.chs");
+        fout<<year<<" "<<month<<" "<<day;
+        if(MessageBox(NULL,"ÏµÍ³¼ì²âµ½½øÈëĞÂÑ§Äê£¬ÊÇ·ñÇå¿ÕÃûµ¥","",MB_ICONEXCLAMATION|MB_OKCANCEL)!=1)
+                MessageBox(NULL,"ÒÔºóÈçĞèĞŞ¸Ä£¬Çëµ½³ÌĞò°²×°Ä¿Â¼ÖĞµÄnamelist.txtĞŞ¸Ä","",MB_ICONEXCLAMATION|MB_OK);
+    }
+    else
+    {
+        long long yy,mm,dd;
+        fin>>yy>>mm>>dd;
+        if(yy<year&&(month>9||mm<9)||year==yy&&month>=9&&mm<9)
+            if(MessageBox(NULL,"ÏµÍ³¼ì²âµ½½øÈëĞÂÑ§Äê£¬ÊÇ·ñÇå¿ÕÃûµ¥","",MB_ICONEXCLAMATION|MB_OKCANCEL)!=1)
+            {
+                MessageBox(NULL,"ÒÔºóÈçĞèĞŞ¸Ä£¬Çëµ½³ÌĞò°²×°Ä¿Â¼ÖĞµÄnamelist.txtĞŞ¸Ä","",MB_ICONEXCLAMATION|MB_OK);
+            }
+            else
+            {
+                ofstream fout("namelist.txt");
+                fout.close();
+                ofstream sout("data.chs");
+                sout<<year<<" "<<month<<" "<<day;
+            }
+    }
+}
 void s(string a)
 {
 	for(int i=0; i<a.length(); i++)
@@ -27,6 +64,8 @@ void s(string a)
 }
 int main()
 {
+        date();
+        ex human[100];
 	ifstream fin("namelist.txt");
 	int tt,top=0,max=0;
 	while(fin>>human[0].num)
@@ -42,16 +81,19 @@ int main()
 	}
 	if(max==0)
 	{
+		fin.close();
+		MessageBox(NULL,"Ãûµ¥Îª¿Õ£¬ÇëÊäÈëÃûµ¥","³éºÅÊı",MB_ICONEXCLAMATION|MB_OK);
 		ofstream fout("namelist.txt");
 		fout.close();
-		fin.close();
-		MessageBox(NULL,"åå•ä¸ºç©ºï¼Œè¯·è¾“å…¥åå•","æŠ½å·æ•°",MB_ICONEXCLAMATION|MB_OK); 
-		cout<<"åå•æ ¼å¼ä¸ºï¼šå·æ•°ï¼ˆç©ºæ ¼ï¼‰å§“åï¼ˆç©ºæ ¼ï¼‰æƒå€¼ï¼ˆæ¢è¡Œï¼‰" ;
-		system("namelist.txt") ;
-		MessageBox(NULL,"ä»¥åå¦‚éœ€ä¿®æ”¹ï¼Œè¯·åˆ°ç¨‹åºå®‰è£…ç›®å½•ä¸­çš„namelist.txtä¿®æ”¹","æŠ½å·æ•°",MB_ICONEXCLAMATION|MB_OK);
-		MessageBox(NULL,"å¦‚æœ‰ç–‘é—®ï¼Œè¯·è”ç³»ä½œè€…","æŠ½å·æ•°",MB_ICONEXCLAMATION|MB_OK); 
+		ofstream sout("read_me.txt");
+		sout<<"ÇëÔÚ¸ÃÈí¼şËùÔÚÎÄ¼ş¼ĞÏÂµÄnamelist.txtÊäÈëÃûµ¥\nÃûµ¥¸ñÊ½Îª£ººÅÊı£¨¿Õ¸ñ£©ĞÕÃû£¨¿Õ¸ñ£©È¨Öµ£¨»»ĞĞ£©\nÈ¨ÖµÎª0Ê±Ïàµ±ÓÚÎŞ´ËÈË£¬Èô²»ÖªµÀÈ¨ÖµÎªºÎÎï£¬½¨ÒéÈ«²¿Îª3\n" ;
+		sout<<"Example:\n7 ÕÅÈı 3" ;
+                sout.close();
+		system("read_me.txt") ;
+                system("namelist.txt") ;
+		MessageBox(NULL,"ÒÔºóÈçĞèĞŞ¸Ä£¬Çëµ½³ÌĞò°²×°Ä¿Â¼ÖĞµÄnamelist.txtĞŞ¸Ä","³éºÅÊı",MB_ICONEXCLAMATION|MB_OK);
+		MessageBox(NULL,"ÈçÓĞÒÉÎÊ£¬ÇëÁªÏµ×÷ÕßÎ¢²©@·çÂ¶¶ù","³éºÅÊı",MB_ICONEXCLAMATION|MB_OK);
 		system("start www.weibo.com/fengluluer") ;
-		essageBox(NULL,"è°ƒæ•´ä¸ºæ–°å®‹ä½“å­—å·å¯å˜æ›´å¤§","æŠ½å·æ•°",MB_ICONEXCLAMATION|MB_OK);
 		return 0; 
 	}
 	srand((unsigned)time(NULL));
@@ -81,12 +123,13 @@ int main()
 			s(human[temp].num);
 			cout<<"    ";
 			s(human[temp].name);
-			if(MessageBox(NULL,"æ˜¯å¦ç»§ç»­ï¼Ÿ","æŠ½å·æ•°",MB_ICONEXCLAMATION|MB_OKCANCEL)!=1)
+			if(MessageBox(NULL,"ÊÇ·ñ¼ÌĞø£¿","³éºÅÊı",MB_ICONEXCLAMATION|MB_OKCANCEL)!=1)
 				return 0;
 			system("cls");
 		}
-		if(MessageBox(NULL,"æŠ½å·æ•°å·²ç»“æŸ\næ˜¯å¦é‡æ–°å¼€å§‹","æŠ½å·æ•°",MB_ICONEXCLAMATION|MB_OKCANCEL)!=1)
+		if(MessageBox(NULL,"³éºÅÊıÒÑ½áÊø\nÊÇ·ñÖØĞÂ¿ªÊ¼","³éºÅÊı",MB_ICONEXCLAMATION|MB_OKCANCEL)!=1)
 			return 0;
 	}
 	while(true);
 }
+
